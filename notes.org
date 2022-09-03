@@ -1,0 +1,63 @@
+These are the example commands provided by the assignment:
+
+Using the '.sum()' Active Record query method:
+#+begin_src ruby
+ClassName.sum(:column_name)
+#+end_src
+
+Using a '.where()' clause to query for specific 'Song' instances:
+#+begin_src ruby
+Song.where("number_of_stars > ?", 3)
+#+end_src
+
+Using '.minimum()' Active Record query method to determine the minimum rating:
+#+begin_src ruby
+Song.minimum(:number_of_stars)
+#+end_src
+
+I created the migration with the 'bundle exec rake db:create_migration NAME=create_shows' command:
+#+begin_src bash
+samuelbanya@Samuels-MBP ~/hub/Development/code/phase-3/phase-3-active-record-querying-methods-lab $ bundle exec rake db:create_migration NAME=create_shows
+
+db/migrate/20220903014139_create_shows.rb
+#+end_src
+
+I then placed the following contents inside the 'db/migrate/20220903014139_create_shows.rb' migration file:
+#+begin_src ruby
+class CreateShows < ActiveRecord::Migration[6.1]
+  def change
+    create_table :shows do |t|
+      t.string :name
+      t.string :network
+      t.string :day
+      t.integer :rating
+    end
+  end
+end
+#+end_src
+
+I then created created a 'app/models/show.rb' file with the following contents:
+#+begin_src ruby
+class Show < ActiveRecord::Base
+end
+#+end_src
+
+I then created another migration file with the 'bundle exec rake db:create_migration NAME=add_season_to_shows' command so that I can later add the 'add_season_to_shows' method:
+#+begin_src bash
+samuelbanya@Samuels-MBP ~/hub/Development/code/phase-3/phase-3-active-record-querying-methods-lab $ bundle exec rake db:create_migration NAME=add_season_to_shows
+
+db/migrate/20220903014615_add_season_to_shows.rb
+#+end_src
+
+I then modified the contents of the 'db/migrate/20220903014615_add_season_to_shows.rb' migration file to add the 'season' column that is a string:
+
+NOTE: I used the Ruby On Rail docs page on 'Changing Tables' as a reference: (https://guides.rubyonrails.org/active_record_migrations.html#changing-tables):
+#+begin_src ruby
+class AddSeasonToShows < ActiveRecord::Migration[6.1]
+  def change
+    change_table :shows do |t|
+      t.string :season
+    end
+  end
+end
+#+end_src
